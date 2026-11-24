@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Monitoring Demo{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="{{ url_for('main.home') }}">Monitoring Demo</a>
+      <nav class="site-nav" aria-label="Main">
+        {% block nav %}{% endblock %}
+      </nav>
+    </div>
+  </header>
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <p>Local demo only — mock metrics, no real collectors.</p>
+  </footer>
+</body>
+</html>

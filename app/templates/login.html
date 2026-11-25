@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Sign in — Monitoring Demo{% endblock %}
+
+{% block content %}
+<section class="auth-panel">
+  <h1>Sign in</h1>
+  <p class="muted">Default username: <code>admin</code> (password from local config).</p>
+  <form method="post" action="{{ url_for('main.login') }}" class="form-stack" novalidate>
+    {{ form.hidden_tag() }}
+    <label>
+      <span>Username</span>
+      {{ form.username(class_="input") }}
+    </label>
+    <label>
+      <span>Password</span>
+      {{ form.password(class_="input") }}
+    </label>
+    {% if form.errors %}
+      <p class="form-error">Check your username and password.</p>
+    {% endif %}
+    {{ form.submit(class_="btn") }}
+  </form>
+</section>
+{% endblock %}

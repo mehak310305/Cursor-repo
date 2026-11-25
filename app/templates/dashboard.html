@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard — Monitoring Demo{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <h1>Dashboard</h1>
+  <p class="muted">Live mock summaries refresh every 5 seconds. Monitoring views are read-only.</p>
+</section>
+
+{% if not servers %}
+  <p class="empty-state">No servers yet. <a href="{{ url_for('main.servers_add') }}">Add a server</a> to begin.</p>
+{% else %}
+  <div class="table-wrap">
+    <table class="data-table" id="dashboard-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Host</th>
+          <th>CPU</th>
+          <th>Memory</th>
+          <th>Network in</th>
+          <th>Network out</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for server in servers %}
+        <tr data-server-id="{{ server.id }}">
+          <td><a href="{{ url_for('main.server_detail', server_id=server.id) }}">{{ server.name }}</a></td>
+          <td>{{ server.host }}</td>
+          <td class="metric-cpu">—</td>
+          <td class="metric-mem">—</td>
+          <td class="metric-net-in">—</td>
+          <td class="metric-net-out">—</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if servers %}
+<script src="{{ url_for('static', filename='js/refresh.js') }}"></script>
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endif %}
+{% endblock %}

@@ -11,15 +11,33 @@
     <div class="header-inner">
       <a class="brand" href="{{ url_for('main.home') }}">Monitoring Demo</a>
       <nav class="site-nav" aria-label="Main">
+        {% if session.get('authenticated') %}
+          <a href="{{ url_for('main.home') }}">Dashboard</a>
+          <a href="{{ url_for('main.servers_add') }}">Add server</a>
+          <form class="inline-form" method="post" action="{{ url_for('main.logout') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="linkish">Logout</button>
+          </form>
+        {% endif %}
         {% block nav %}{% endblock %}
       </nav>
     </div>
   </header>
   <main class="content">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class="flash-list">
+          {% for category, message in messages %}
+            <li class="flash flash-{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
     {% block content %}{% endblock %}
   </main>
   <footer class="site-footer">
     <p>Local demo only — mock metrics, no real collectors.</p>
   </footer>
+  {% block scripts %}{% endblock %}
 </body>
 </html>

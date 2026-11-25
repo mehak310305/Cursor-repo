@@ -31,155 +31,155 @@ Work **one checkbox group at a time**. Each step includes **security** and **doc
 ## Phase 1 — Sign-in & unit tests
 
 ### 1.1 Config for admin auth
-- [ ] Add config for `ADMIN_USERNAME=admin` and a **hashed** password (werkzeug/passlib hash)
-- [ ] Load `SECRET_KEY` from environment or local config file (not committed with production values)
-- [ ] **Security:** Store only password **hash**; document how to generate the hash; never log passwords
-- [ ] **Docs:** Add “Authentication config” section (username, hashing, env vars)
+- [x] Add config for `ADMIN_USERNAME=admin` and a **hashed** password (werkzeug/passlib hash)
+- [x] Load `SECRET_KEY` from environment or local config file (not committed with production values)
+- [x] **Security:** Store only password **hash**; document how to generate the hash; never log passwords
+- [x] **Docs:** Add “Authentication config” section (username, hashing, env vars)
 
 ### 1.2 Login page UI
-- [ ] Add `/login` route + form (username, password, submit)
-- [ ] Style login to match dark UI; link unauthenticated home → login
-- [ ] **Security:** Use POST for credentials; CSRF protection (Flask-WTF or equivalent); autocomplete-friendly password field
-- [ ] **Docs:** Document login URL and default username (not the password value in git if avoidable—point to local config)
+- [x] Add `/login` route + form (username, password, submit)
+- [x] Style login to match dark UI; link unauthenticated home → login
+- [x] **Security:** Use POST for credentials; CSRF protection (Flask-WTF or equivalent); autocomplete-friendly password field
+- [x] **Docs:** Document login URL and default username (not the password value in git if avoidable—point to local config)
 
 ### 1.3 Session-based sign-in / logout
-- [ ] Verify username + hashed password; create session on success; redirect to dashboard placeholder
-- [ ] Add logout that clears session; reject invalid credentials with generic error message
-- [ ] **Security:** Generic failure message (“Invalid credentials”); secure session cookie flags for local demo (`HttpOnly`, `SameSite`); constant-time hash check via library
-- [ ] **Docs:** Document sign-in / logout flow in README
+- [x] Verify username + hashed password; create session on success; redirect to dashboard placeholder
+- [x] Add logout that clears session; reject invalid credentials with generic error message
+- [x] **Security:** Generic failure message (“Invalid credentials”); secure session cookie flags for local demo (`HttpOnly`, `SameSite`); constant-time hash check via library
+- [x] **Docs:** Document sign-in / logout flow in README
 
 ### 1.4 Auth unit tests
-- [ ] Add `pytest` (+ Flask test client) to requirements/dev deps
-- [ ] Tests: login success, login failure, logout, protected route redirects when anonymous
-- [ ] **Security:** Tests must use test config hashes—no production secrets in tests
-- [ ] **Docs:** Document how to run tests: `pytest`
+- [x] Add `pytest` (+ Flask test client) to requirements/dev deps
+- [x] Tests: login success, login failure, logout, protected route redirects when anonymous
+- [x] **Security:** Tests must use test config hashes—no production secrets in tests
+- [x] **Docs:** Document how to run tests: `pytest`
 
 ### 1.5 Protect routes
-- [ ] Add login-required decorator/middleware for non-login pages
-- [ ] Redirect anonymous users to `/login`
-- [ ] **Security:** Ensure only `/login` (and static assets) are public
-- [ ] **Docs:** List which routes require auth
+- [x] Add login-required decorator/middleware for non-login pages
+- [x] Redirect anonymous users to `/login`
+- [x] **Security:** Ensure only `/login` (and static assets) are public
+- [x] **Docs:** List which routes require auth
 
 ---
 
 ## Phase 2 — Server registry (name + host)
 
 ### 2.1 Data store for servers
-- [ ] Choose lightweight store (SQLite or JSON file under a local data path)
-- [ ] Model: id, name, hostname/IP, created_at
-- [ ] **Security:** Validate/sanitize name and host input length; path for DB/JSON outside web-accessible static dirs
-- [ ] **Docs:** Document storage location and how to reset demo data
+- [x] Choose lightweight store (SQLite or JSON file under a local data path)
+- [x] Model: id, name, hostname/IP, created_at
+- [x] **Security:** Validate/sanitize name and host input length; path for DB/JSON outside web-accessible static dirs
+- [x] **Docs:** Document storage location and how to reset demo data
 
 ### 2.2 Add-server form
-- [ ] Add `/servers/add` (GET form + POST submit): fields **Server name**, **Hostname/IP** only
-- [ ] On success, redirect to dashboard; show validation errors inline
-- [ ] **Security:** CSRF on form; reject empty/oversized fields; basic hostname/IP format check
-- [ ] **Docs:** Document how to add a server
+- [x] Add `/servers/add` (GET form + POST submit): fields **Server name**, **Hostname/IP** only
+- [x] On success, redirect to dashboard; show validation errors inline
+- [x] **Security:** CSRF on form; reject empty/oversized fields; basic hostname/IP format check
+- [x] **Docs:** Document how to add a server
 
 ### 2.3 Duplicate host handling
-- [ ] Reject or clearly flag duplicate hostname/IP
-- [ ] Unit tests for add success + duplicate rejection
-- [ ] **Security:** Do not reflect raw unsanitized input in error HTML (escape templates)
-- [ ] **Docs:** Note duplicate rule in README / requirements cross-link
+- [x] Reject or clearly flag duplicate hostname/IP
+- [x] Unit tests for add success + duplicate rejection
+- [x] **Security:** Do not reflect raw unsanitized input in error HTML (escape templates)
+- [x] **Docs:** Note duplicate rule in README / requirements cross-link
 
 ### 2.4 List servers on dashboard shell
-- [ ] Dashboard route lists registered servers (name + host); link to detail placeholder
-- [ ] Empty state when no servers
-- [ ] **Security:** Auth-only access; autoescape templates (Jinja default)
-- [ ] **Docs:** Screenshot or short description of dashboard empty vs populated
+- [x] Dashboard route lists registered servers (name + host); link to detail placeholder
+- [x] Empty state when no servers
+- [x] **Security:** Auth-only access; autoescape templates (Jinja default)
+- [x] **Docs:** Screenshot or short description of dashboard empty vs populated
 
 ---
 
 ## Phase 3 — Mock metrics engine
 
 ### 3.1 Mock metric generator
-- [ ] Module that returns plausible CPU %, memory used/total/%, network in/out
-- [ ] Slight variance per call to simulate “live” data
-- [ ] **Security:** No OS/shell calls; pure mock—avoid accidental real probing APIs
-- [ ] **Docs:** Document that metrics are **mock/sample only**
+- [x] Module that returns plausible CPU %, memory used/total/%, network in/out
+- [x] Slight variance per call to simulate “live” data
+- [x] **Security:** No OS/shell calls; pure mock—avoid accidental real probing APIs
+- [x] **Docs:** Document that metrics are **mock/sample only**
 
 ### 3.2 Listening ports mock
-- [ ] Generator returns list of listening ports with **process name** (and protocol if trivial)
-- [ ] Unit tests for shape/ranges of mock payloads
-- [ ] **Security:** Fixed allowlist of fake process names; no reading real `/proc`
-- [ ] **Docs:** Example mock JSON shape in docs or README
+- [x] Generator returns list of listening ports with **process name** (and protocol if trivial)
+- [x] Unit tests for shape/ranges of mock payloads
+- [x] **Security:** Fixed allowlist of fake process names; no reading real `/proc`
+- [x] **Docs:** Example mock JSON shape in docs or README
 
 ### 3.3 Metrics API for UI refresh
-- [ ] Auth-protected JSON endpoint(s) for dashboard summary and server detail
-- [ ] Return 404 for unknown server id
-- [ ] **Security:** Auth required on API; no sensitive config in JSON responses
-- [ ] **Docs:** Document endpoint paths and response fields
+- [x] Auth-protected JSON endpoint(s) for dashboard summary and server detail
+- [x] Return 404 for unknown server id
+- [x] **Security:** Auth required on API; no sensitive config in JSON responses
+- [x] **Docs:** Document endpoint paths and response fields
 
 ---
 
 ## Phase 4 — Dashboard & server detail UI
 
 ### 4.1 Dashboard live summary
-- [ ] Show per-server CPU, memory, network summary on dashboard
-- [ ] Client auto-refresh every **5 seconds** (fetch JSON or reload partial)
-- [ ] **Security:** Credentials not stored in JS; fetch with same-origin session cookies only
-- [ ] **Docs:** Note 5s refresh behavior
+- [x] Show per-server CPU, memory, network summary on dashboard
+- [x] Client auto-refresh every **5 seconds** (fetch JSON or reload partial)
+- [x] **Security:** Credentials not stored in JS; fetch with same-origin session cookies only
+- [x] **Docs:** Note 5s refresh behavior
 
 ### 4.2 Server detail page
-- [ ] `/servers/<id>` shows CPU, memory, network, listening ports + process names
-- [ ] Auto-refresh every **5 seconds**; back link to dashboard
-- [ ] **Security:** Auth-only; validate `id`; 404 for missing; escape all rendered fields
-- [ ] **Docs:** Document detail page fields
+- [x] `/servers/<id>` shows CPU, memory, network, listening ports + process names
+- [x] Auto-refresh every **5 seconds**; back link to dashboard
+- [x] **Security:** Auth-only; validate `id`; 404 for missing; escape all rendered fields
+- [x] **Docs:** Document detail page fields
 
 ### 4.3 UI polish (dark, read-only)
-- [ ] Consistent dark theme, readable tables/cards for metrics (keep simple)
-- [ ] Monitoring views remain read-only (no edit/delete metrics)
-- [ ] **Security:** No dangerous HTML from mock data; CSP-friendly structure if easy
-- [ ] **Docs:** Update README “UI overview”
+- [x] Consistent dark theme, readable tables/cards for metrics (keep simple)
+- [x] Monitoring views remain read-only (no edit/delete metrics)
+- [x] **Security:** No dangerous HTML from mock data; CSP-friendly structure if easy
+- [x] **Docs:** Update README “UI overview”
 
 ### 4.4 Feature tests
-- [ ] Tests: dashboard requires login; detail requires login; add server then see it listed; metrics JSON shape
-- [ ] **Security:** Confirm anonymous access denied for dashboard, detail, metrics API, add-server
-- [ ] **Docs:** List test coverage areas in README or `docs/testing.md`
+- [x] Tests: dashboard requires login; detail requires login; add server then see it listed; metrics JSON shape
+- [x] **Security:** Confirm anonymous access denied for dashboard, detail, metrics API, add-server
+- [x] **Docs:** List test coverage areas in README or `docs/testing.md`
 
 ---
 
 ## Phase 5 — CI/CD (GitHub Actions)
 
 ### 5.1 Workflow: lint & test
-- [ ] Add `.github/workflows/ci.yml` — on push/PR: install deps, run `pytest`
-- [ ] Optionally run a lightweight linter (e.g. `ruff` or `flake8`)
-- [ ] **Security:** No secrets in workflow logs; use dummy test password hash in CI env; pin action versions (`@v4` etc.)
-- [ ] **Docs:** Document CI status badge and what the pipeline runs
+- [x] Add `.github/workflows/ci.yml` — on push/PR: install deps, run `pytest`
+- [x] Optionally run a lightweight linter (e.g. `ruff` or `flake8`)
+- [x] **Security:** No secrets in workflow logs; use dummy test password hash in CI env; pin action versions (`@v4` etc.)
+- [x] **Docs:** Document CI status badge and what the pipeline runs
 
 ### 5.2 Dependency / safety hygiene in CI
-- [ ] Cache pip dependencies; fail job on test failure
-- [ ] Optional: `pip audit` or safety check as non-blocking or blocking step
-- [ ] **Security:** Least-privilege `permissions:` on the workflow (e.g. `contents: read`)
-- [ ] **Docs:** Short `docs/ci.md` or README section explaining CI
+- [x] Cache pip dependencies; fail job on test failure
+- [x] Optional: `pip audit` or safety check as non-blocking or blocking step
+- [x] **Security:** Least-privilege `permissions:` on the workflow (e.g. `contents: read`)
+- [x] **Docs:** Short `docs/ci.md` or README section explaining CI
 
 ### 5.3 Smoke check (optional, still small)
-- [ ] CI step that imports the Flask app / hits `/login` with test client
-- [ ] **Security:** Do not start a long-lived public server in CI
-- [ ] **Docs:** Note smoke check in CI docs
+- [x] CI step that imports the Flask app / hits `/login` with test client
+- [x] **Security:** Do not start a long-lived public server in CI
+- [x] **Docs:** Note smoke check in CI docs
 
 ---
 
 ## Phase 6 — Hardening & demo readiness
 
 ### 6.1 Final security pass
-- [ ] Review: hashed password only, CSRF on forms, auth on all sensitive routes, `.gitignore` complete
-- [ ] Ensure error messages do not leak stack traces in demo “production-like” config (`DEBUG` off by default)
-- [ ] **Security:** Checklist sign-off in docs
-- [ ] **Docs:** Add `docs/security.md` (demo scope: local-only, mock data, no HTTPS)
+- [x] Review: hashed password only, CSRF on forms, auth on all sensitive routes, `.gitignore` complete
+- [x] Ensure error messages do not leak stack traces in demo “production-like” config (`DEBUG` off by default)
+- [x] **Security:** Checklist sign-off in docs
+- [x] **Docs:** Add `docs/security.md` (demo scope: local-only, mock data, no HTTPS)
 
 ### 6.2 Final documentation pass
-- [ ] Complete README: setup, run, login, add server, dashboard, tests, CI
-- [ ] Link README ↔ `docs/requirements.md` ↔ `docs/TODO.md`
-- [ ] **Security:** Remind users not to reuse the demo password elsewhere
-- [ ] **Docs:** Mark TODO items done as work completes; keep requirements as source of truth
+- [x] Complete README: setup, run, login, add server, dashboard, tests, CI
+- [x] Link README ↔ `docs/requirements.md` ↔ `docs/TODO.md`
+- [x] **Security:** Remind users not to reuse the demo password elsewhere
+- [x] **Docs:** Mark TODO items done as work completes; keep requirements as source of truth
 
 ### 6.3 Local demo verification
-- [ ] Confirm app listens on **`0.0.0.0:5777`**
-- [ ] Manual walkthrough: open `:5777` → login → add server → dashboard 5s refresh → server detail ports/process
-- [ ] Confirm non-goals still out of scope (no alerts, HTTPS, real collectors)
-- [ ] **Security:** Confirm logout clears access to dashboard
-- [ ] **Docs:** Add a short “Demo script” (3–5 steps) for L1/L2/L3 reviewers
+- [x] Confirm app listens on **`0.0.0.0:5777`**
+- [x] Manual walkthrough: open `:5777` → login → add server → dashboard 5s refresh → server detail ports/process
+- [x] Confirm non-goals still out of scope (no alerts, HTTPS, real collectors)
+- [x] **Security:** Confirm logout clears access to dashboard
+- [x] **Docs:** Add a short “Demo script” (3–5 steps) for L1/L2/L3 reviewers
 
 ---
 

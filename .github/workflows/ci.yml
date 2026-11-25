@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      # Dummy test values only — never log real secrets.
+      SECRET_KEY: ci-test-secret-key
+      ADMIN_USERNAME: admin
+      # Hash for password "ci-demo-password" (tests override with their own hash).
+      ADMIN_PASSWORD_HASH: "scrypt:32768:8:1$placeholder$0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Lint (ruff)
+        run: ruff check app tests
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Smoke — import app and hit /login
+        run: |
+          python - <<'PY'
+          from app import create_app
+          app = create_app({"TESTING": True, "WTF_CSRF_ENABLED": False})
+          client = app.test_client()
+          r = client.get("/login")
+          assert r.status_code == 200, r.status_code
+          print("smoke ok")
+          PY
+
+      - name: Dependency audit (non-blocking)
+        continue-on-error: true
+        run: pip install pip-audit && pip-audit

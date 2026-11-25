@@ -8,7 +8,8 @@
   --text: #e7ecf3;
   --text-muted: #8b9bb0;
   --accent: #3d8bfd;
-  --accent-soft: rgba(61, 139, 253, 0.15);
+  --danger: #f07178;
+  --success: #7fd962;
   --header-height: 3.5rem;
   --font: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -43,6 +44,13 @@ a:hover {
   text-decoration: underline;
 }
 
+code {
+  font-size: 0.9em;
+  background: var(--bg-elevated);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
 .site-header {
   background: var(--bg-elevated);
   border-bottom: 1px solid var(--border);
@@ -50,7 +58,7 @@ a:hover {
 }
 
 .header-inner {
-  max-width: 56rem;
+  max-width: 64rem;
   margin: 0 auto;
   padding: 0.875rem 1.25rem;
   display: flex;
@@ -71,16 +79,53 @@ a:hover {
   text-decoration: none;
 }
 
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.site-nav a {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.site-nav a:hover {
+  color: var(--text);
+}
+
+.inline-form {
+  display: inline;
+  margin: 0;
+}
+
+button.linkish {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+button.linkish:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
 .content {
   flex: 1;
-  max-width: 56rem;
+  max-width: 64rem;
   width: 100%;
   margin: 0 auto;
   padding: 2rem 1.25rem;
 }
 
-.hero h1 {
-  margin: 0 0 0.75rem;
+.page-head h1,
+.hero h1,
+.auth-panel h1 {
+  margin: 0 0 0.5rem;
   font-size: 1.75rem;
   font-weight: 600;
   letter-spacing: -0.02em;
@@ -94,8 +139,161 @@ a:hover {
 
 .muted {
   color: var(--text-muted);
-  margin: 0;
+  margin: 0 0 1rem;
   font-size: 0.95rem;
+}
+
+.back-link {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+.auth-panel {
+  max-width: 22rem;
+}
+
+.form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 24rem;
+}
+
+.form-stack label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.9rem;
+}
+
+.input {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 0.55rem 0.7rem;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+.btn {
+  align-self: flex-start;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.55rem 1.1rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn:hover {
+  filter: brightness(1.08);
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.flash-list {
+  list-style: none;
+  margin: 0 0 1.25rem;
+  padding: 0;
+}
+
+.flash {
+  padding: 0.6rem 0.85rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+}
+
+.flash-error {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.flash-success {
+  border-color: var(--success);
+  color: var(--success);
+}
+
+.empty-state {
+  color: var(--text-muted);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.data-table th,
+.data-table td {
+  text-align: left;
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table th {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.metric-block {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1rem 1.1rem;
+}
+
+.metric-block h2 {
+  margin: 0 0 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.metric-value {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.ports-section h2 {
+  font-size: 1.1rem;
+  margin: 0 0 0.75rem;
 }
 
 .site-footer {

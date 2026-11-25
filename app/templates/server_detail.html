@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ server.name }} — Monitoring Demo{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <p class="back-link"><a href="{{ url_for('main.home') }}">← Dashboard</a></p>
+  <h1>{{ server.name }}</h1>
+  <p class="muted">{{ server.host }} · mock metrics refresh every 5 seconds</p>
+</section>
+
+<div class="metric-grid" id="detail-metrics" data-server-id="{{ server.id }}">
+  <div class="metric-block">
+    <h2>CPU</h2>
+    <p class="metric-value" id="detail-cpu">—</p>
+  </div>
+  <div class="metric-block">
+    <h2>Memory</h2>
+    <p class="metric-value" id="detail-mem">—</p>
+  </div>
+  <div class="metric-block">
+    <h2>Network</h2>
+    <p class="metric-value" id="detail-net">—</p>
+  </div>
+</div>
+
+<section class="ports-section">
+  <h2>Listening ports</h2>
+  <div class="table-wrap">
+    <table class="data-table" id="ports-table">
+      <thead>
+        <tr>
+          <th>Port</th>
+          <th>Protocol</th>
+          <th>Process</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="3" class="muted">Loading…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/refresh.js') }}"></script>
+<script src="{{ url_for('static', filename='js/detail.js') }}"></script>
+{% endblock %}
